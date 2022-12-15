@@ -4,4 +4,4 @@
 __pycache__
 beerproject/db.sqlite3
 .DS_STORE
-beerproject/beerproject/secrets.json
+beerproject/secrets.json
