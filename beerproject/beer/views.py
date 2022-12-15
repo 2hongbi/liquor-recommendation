@@ -109,7 +109,6 @@ def similartiy_based(request):
         df_aroma = recomm_feature(ratings, 'Aroma')
         df_flavor = recomm_feature(ratings, 'Flavor')
         df_mouthfeel = recomm_feature(ratings, 'Mouthfeel')
-        print(beer_name)
         if detail == 'Aroma':
             df = df_aroma*0.8 + df_flavor*0.1 + df_mouthfeel*0.1
         if detail == 'Flavor':
@@ -263,3 +262,19 @@ def rating_based(request):
 
     else:
         return render(request, 'rating_based.html', {'beer_list': beer_list})
+
+
+def review_based(request):
+    beer_data = pd.read_csv('맥주_review_cf.csv', encoding='utf-8', index_col=0)
+    beer_list = beer_data.index
+    print(beer_list)
+    if request.method == 'POST':
+        beer_name = request.POST.get('beer', '')
+        result = recomm_beer(beer_data, beer_name)
+        print(result)
+        result = result.index.tolist()
+        return render(request, 'review_based_result.html',
+                      {'result': result, 'beer_list': beer_list})
+
+    else:
+        return render(request, 'review_based.html', {'beer_list': beer_list})

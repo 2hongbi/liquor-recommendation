@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+ <div class="container px-4">
+     <h1>📌 리뷰 데이터 기반 추천</h1><br>
+     <p class="h5">선호하는 맥주와 비슷한 맥주 3가지 입니다!</p>
+     <div class="col-md-6 offset-md-3">
+        <img class="img-fluid" src="{% static 'img/beer2.png' %}">
+    </div>
+     <ol class="list-group list-group-numbered">
+      <li class="list-group-item">{{ result.0 }}</li>
+      <li class="list-group-item">{{ result.1 }}</li>
+      <li class="list-group-item">{{ result.2 }}</li>
+    </ol>
+ </div>
+{% endblock %}
