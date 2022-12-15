@@ -19,3 +19,4 @@ sqlparse @ file:///home/conda/feedstock_root/build_artifacts/sqlparse_1631317292
 threadpoolctl @ file:///home/conda/feedstock_root/build_artifacts/threadpoolctl_1643647933166/work
 typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1644850595256/work
 whitenoise==6.2.0
+
