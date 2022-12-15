@@ -1,0 +1,32 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>🍺 알딸딸하조 🍺</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+</head>
+<body class="text-center">
+<div class="container px-4">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <img class="bi me-2" width="50" height="50" src="{% static 'img/beer-mug.png' %}" aria-label="beer" />
+          <span class="fs-3">Beer</span>
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="similarity_based" class="nav-link px-2 link-dark">유사도 기반 추천</a></li>
+        <li><a href="rating_based" class="nav-link px-2 link-dark">평점 기반 추천</a></li>
+      </ul>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

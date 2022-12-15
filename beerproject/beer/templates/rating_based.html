@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>좋아하는 맥주와 평점을 선택해주세요.</h2>
+<div class="col-md-6 offset-md-3">
+    <img class="img-fluid" src="{% static 'img/beach.jpg' %}">
+</div>
+<div class="container p-4 text-center">
+    <form method="POST">
+            {% csrf_token %}
+        <div class="row row-cols-4 justify-content-evenly">
+            <div class="col card m-1">
+                <div class="card-body">
+                    <label for="beer1" class="form-label">맥주1</label>
+                    <select class="form-select" id="beer1" name="beer1">
+                        {% for tmp in beer_list %}
+                            <option value='{{tmp}}'>{{tmp}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating1" class="form-label">맥주1 평점</label>
+                    <select class="form-select" id="rating1" name="rating1">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3 selected>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col card m-1">
+                <div class="card-body">
+                    <label for="beer2" class="form-label">맥주2</label>
+                    <select class="form-select" id="beer2" name="beer2">
+                        {% for tmp in beer_list %}
+                            <option value='{{tmp}}'>{{tmp}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating1" class="form-label">맥주2 평점</label>
+                    <select class="form-select" id="rating2" name="rating2">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3 selected>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col card m-1">
+                <div class="card-body">
+                    <label for="beer3" class="form-label">맥주3</label>
+                    <select class="form-select" id="beer3" name="beer3">
+                        {% for tmp in beer_list %}
+                            <option value='{{tmp}}'>{{tmp}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating3" class="form-label">맥주3 평점</label>
+                    <select class="form-select" id="rating3" name="rating3">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3 selected>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-4 justify-content-evenly">
+            <div class="col card m-1">
+                <div class="card-body">
+                    <label for="beer4" class="form-label">맥주4</label>
+                    <select class="form-select" id="beer4" name="beer4">
+                        {% for tmp in beer_list %}
+                            <option value='{{tmp}}'>{{tmp}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating4" class="form-label">맥주4 평점</label>
+                    <select class="form-select" id="rating4" name="rating4">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3 selected>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col card m-1">
+                <div class="card-body">
+                    <label for="beer5" class="form-label">맥주5</label>
+                    <select class="form-select" id="beer5" name="beer5">
+                        {% for tmp in beer_list %}
+                            <option value='{{tmp}}'>{{tmp}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="rating5" class="form-label">맥주5 평점</label>
+                    <select class="form-select" id="rating5" name="rating5">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3 selected>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-success" type="submit" value="Pick!">
+        </form>
+</div>
+{% endblock %}

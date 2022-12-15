@@ -32,6 +32,7 @@ def predict_rating_topsim(ratings_arr, item_sim_arr, n=20):
 
     return pred
 
+
 # 사용자가 안 먹어본 맥주를 추천하자.
 def get_not_tried_beer(ratings_matrix, userId):
     # userId로 입력받은 사용자의 모든 맥주 정보를 추출해 Series로 반환
@@ -50,11 +51,13 @@ def get_not_tried_beer(ratings_matrix, userId):
 
     return not_tried
 
+
 # 예측 평점 DataFrame에서 사용자 id 인덱스와 not_tried로 들어온 맥주명 추출 후
 # 가장 예측 평점이 높은 순으로 정렬
 def recomm_beer_by_userid(pred_df, userId, not_tried, top_n):
     recomm_beer = pred_df.loc[userId, not_tried].sort_values(ascending=False)[:top_n]
     return recomm_beer
+
 
 # 평점, Aroma, Flavor, Mouthfeel 중 피처 선택 후 유사도 계산
 def recomm_feature(df, col):
@@ -87,10 +90,10 @@ def recomm_beer(item_sim_df, beer_name):
 
 
 def index(request):
-    return render(request, 'beer/index.html')
+    return render(request, 'index.html')
 
 
-def ver1(request):
+def similartiy_based(request):
     beer_list = pd.read_csv('맥주이름.csv', encoding='utf-8', index_col=0)
     beer_year = pd.read_csv('맥주_연도별평점.csv', encoding='utf-8', index_col=0)
     ratings = pd.read_csv('정제된데이터.csv', encoding='utf-8', index_col=0)
@@ -106,7 +109,7 @@ def ver1(request):
         df_aroma = recomm_feature(ratings, 'Aroma')
         df_flavor = recomm_feature(ratings, 'Flavor')
         df_mouthfeel = recomm_feature(ratings, 'Mouthfeel')
-
+        print(beer_name)
         if detail == 'Aroma':
             df = df_aroma*0.8 + df_flavor*0.1 + df_mouthfeel*0.1
         if detail == 'Flavor':
@@ -127,18 +130,17 @@ def ver1(request):
             target = target.values[0]
             tmp_cluster.append(target)
 
-            try :
+            try:
                 category.append(beer_data[beer_data['맥주이름'] == result[i]]['Main Category'].values[0])
-                food.append(beer_data[beer_data['맥주이름'] == result[i]]['Paring Food'].values[0])
+                food.append(', '.join(eval(beer_data[beer_data['맥주이름'] == result[i]]['Paring Food'].values[0])))
             except:
                 category.append('수집되지 않았습니다.')
                 food.append('수집되지 않았습니다.')
-
         # 연도별 평점 결과
         tmp_year = []
         tmp_ratings = []
         for i in range(3):
-            target = beer_year[beer_year['맥주']==result[i]]
+            target = beer_year[beer_year['맥주'] == result[i]]
             target_year = target['년'].tolist()
             target_rating = target['평점'].tolist()
             tmp_year.append(target_year)
@@ -158,15 +160,14 @@ def ver1(request):
         }
 
         targetJson = json.dumps(targetdict)
-
-        return render(request, 'beer/ver1_result.html',
+        return render(request, 'similarity_based_result.html',
                    {'result': result, 'beer_list': beer_list, 'targetJson': targetJson,
                     'category': category, 'food': food})
     else:
-        return render(request, 'beer/ver1.html', {'beer_list': beer_list})
+        return render(request, 'similarity_based.html', {'beer_list': beer_list})
 
 
-def ver2(request):
+def rating_based(request):
     beer_list = pd.read_csv('맥주이름.csv', encoding='utf-8', index_col=0)
     beer_year = pd.read_csv('맥주_연도별평점.csv', encoding='utf-8', index_col=0)
     ratings = pd.read_csv('정제된데이터.csv', encoding='utf-8', index_col=0)
@@ -256,9 +257,9 @@ def ver2(request):
 
         targetJson = json.dumps(targetdict)
 
-        return render(request, 'beer/ver2_result.html',
-                      {'result': result, 'beer_list': beer_list,'targetJson': targetJson,
-                       'category':category, 'food':food})
+        return render(request, 'rating_based_result.html',
+                      {'result': result, 'beer_list': beer_list, 'targetJson': targetJson,
+                       'category': category, 'food': food})
 
     else:
-        return render(request, 'beer/ver2.html', {'beer_list': beer_list})
+        return render(request, 'rating_based.html', {'beer_list': beer_list})

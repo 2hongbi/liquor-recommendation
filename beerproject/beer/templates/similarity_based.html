@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>좋아하는 맥주와 중요시 하는 취향을 선택해주세요.</h2>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <img class="img-fluid" src="{% static 'img/beers.jpg' %}">
+        <form method="POST">
+        {% csrf_token %}
+            <label for="beer" class="form-label">맥주</label>
+            <select class="form-select" id="beer" name="beer">
+                {% for tmp in beer_list %}
+                    <option value='{{tmp}}'>{{tmp}}</option>
+                {% endfor %}
+            </select>
+
+            <label for="detail" class="form-label">취향</label>
+            <select class="form-select" id="detail" name="detail">
+                <option value="Flavor">맛</option>
+                <option value="Aroma">향</option>
+                <option value="Mouthfeel">목넘김</option>
+            </select><br>
+            <input class="btn btn-success" type="submit" value="Pick!">
+        </form>
+    </div>
+</div>
+{% endblock %}
