@@ -228,7 +228,7 @@ def rating_based(request):
 
             try :
                 category.append(beer_data[beer_data['맥주이름'] == result[i]]['Main Category'].values[0])
-                food.append(beer_data[beer_data['맥주이름'] == result[i]]['Paring Food'].values[0])
+                food.append(', '.join(eval(beer_data[beer_data['맥주이름'] == result[i]]['Paring Food'].values[0])))
             except :
                 category.append('수집되지 않았습니다.')
                 food.append('수집되지 않았습니다.')
