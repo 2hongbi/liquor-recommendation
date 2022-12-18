@@ -5,10 +5,8 @@ import numpy as np
 import json
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics import mean_squared_error
-import os
 
 
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 # 우리가 예측한 평점과 실제 평점간의 차이를 MSE로 계산
 def get_mse(pred, actual):
     # 평점이 있는 실제 영화만 추출
@@ -96,12 +94,12 @@ def index(request):
 
 
 def similartiy_based(request):
-    beer_list = pd.read_csv(FILE_PATH + '/맥주이름.csv', encoding='utf-8', index_col=0)
-    beer_year = pd.read_csv(FILE_PATH + '/맥주_연도별평점.csv', encoding='utf-8', index_col=0)
-    ratings = pd.read_csv(FILE_PATH + '/정제된데이터.csv', encoding='utf-8', index_col=0)
-    cluster_3 = pd.read_csv(FILE_PATH + '/대표군집클러스터링.csv', encoding='utf-8', index_col=0)
-    cluster_all = pd.read_csv(FILE_PATH + '/전체맥주클러스터링.csv', encoding='utf-8', index_col=0)
-    beer_data = pd.read_csv(FILE_PATH + '/맥주_cbf_data.csv', encoding='utf-8', index_col=0)
+    beer_list = pd.read_csv('맥주이름.csv', encoding='utf-8', index_col=0)
+    beer_year = pd.read_csv('맥주_연도별평점.csv', encoding='utf-8', index_col=0)
+    ratings = pd.read_csv('정제된데이터.csv', encoding='utf-8', index_col=0)
+    cluster_3 = pd.read_csv('대표군집클러스터링.csv', encoding='utf-8', index_col=0)
+    cluster_all = pd.read_csv('전체맥주클러스터링.csv', encoding='utf-8', index_col=0)
+    beer_data = pd.read_csv('맥주_cbf_data.csv', encoding='utf-8', index_col=0)
     beer_list = beer_list['name']
     cluster_3 = cluster_3.values
 
@@ -127,7 +125,7 @@ def similartiy_based(request):
         food = []
         for i in range(3):
             target = cluster_all[cluster_all['맥주'] == result[i]]
-            target = target[['Aroma', 'Appearance', 'Flavor','Mouthfeel', 'Overall', '맥주도수', '맥주IBU', '맥주칼로리']]
+            target = target[['Aroma', 'Appearance', 'Flavor', 'Mouthfeel', 'Overall']]
             target = target.values[0]
             tmp_cluster.append(target)
 
@@ -169,12 +167,12 @@ def similartiy_based(request):
 
 
 def rating_based(request):
-    beer_list = pd.read_csv(FILE_PATH + '/맥주이름.csv', encoding='utf-8', index_col=0)
-    beer_year = pd.read_csv(FILE_PATH + '/맥주_연도별평점.csv', encoding='utf-8', index_col=0)
-    ratings = pd.read_csv(FILE_PATH + '/정제된데이터.csv', encoding='utf-8', index_col=0)
-    cluster_3 = pd.read_csv(FILE_PATH + '/대표군집클러스터링.csv', encoding='utf-8', index_col=0)
-    cluster_all = pd.read_csv(FILE_PATH + '/전체맥주클러스터링.csv', encoding='utf-8', index_col=0)
-    beer_data = pd.read_csv(FILE_PATH + '/맥주_cbf_data.csv', encoding='utf-8', index_col=0)
+    beer_list = pd.read_csv('맥주이름.csv', encoding='utf-8', index_col=0)
+    beer_year = pd.read_csv('맥주_연도별평점.csv', encoding='utf-8', index_col=0)
+    ratings = pd.read_csv('정제된데이터.csv', encoding='utf-8', index_col=0)
+    cluster_3 = pd.read_csv('대표군집클러스터링.csv', encoding='utf-8', index_col=0)
+    cluster_all = pd.read_csv('전체맥주클러스터링.csv', encoding='utf-8', index_col=0)
+    beer_data = pd.read_csv('맥주_cbf_data.csv', encoding='utf-8', index_col=0)
     beer_list = beer_list['name']
     cluster_3 = cluster_3.values
 
@@ -224,7 +222,7 @@ def rating_based(request):
         food = []
         for i in range(3):
             target = cluster_all[cluster_all['맥주'] == result[i]]
-            target = target[['Aroma', 'Appearance', 'Flavor','Mouthfeel', 'Overall', '맥주도수', '맥주IBU', '맥주칼로리']]
+            target = target[['Aroma', 'Appearance', 'Flavor', 'Mouthfeel', 'Overall']]
             target = target.values[0]
             tmp_cluster.append(target)
 
@@ -267,7 +265,7 @@ def rating_based(request):
 
 
 def review_based(request):
-    beer_data = pd.read_csv(FILE_PATH + '/맥주_review_cf.csv', encoding='utf-8', index_col=0)
+    beer_data = pd.read_csv('맥주_review_cf.csv', encoding='utf-8', index_col=0)
     beer_list = beer_data.index
     print(beer_list)
     if request.method == 'POST':
