@@ -127,7 +127,7 @@ def similartiy_based(request):
         food = []
         for i in range(3):
             target = cluster_all[cluster_all['맥주'] == result[i]]
-            target = target[['Aroma', 'Appearance', 'Flavor', 'Mouthfeel', 'Overall']]
+            target = target[['Aroma', 'Appearance', 'Flavor','Mouthfeel', 'Overall', '맥주도수', '맥주IBU', '맥주칼로리']]
             target = target.values[0]
             tmp_cluster.append(target)
 
@@ -224,7 +224,7 @@ def rating_based(request):
         food = []
         for i in range(3):
             target = cluster_all[cluster_all['맥주'] == result[i]]
-            target = target[['Aroma', 'Appearance', 'Flavor', 'Mouthfeel', 'Overall']]
+            target = target[['Aroma', 'Appearance', 'Flavor','Mouthfeel', 'Overall', '맥주도수', '맥주IBU', '맥주칼로리']]
             target = target.values[0]
             tmp_cluster.append(target)
 
